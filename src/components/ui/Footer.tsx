@@ -3,15 +3,18 @@ import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-gray-900 text-white py-12">
+    <footer
+      id="contact"
+      className="bg-gray-900 text-white py-12 pb-[env(safe-area-inset-bottom)]"
+    >
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full md:w-1/2 px-4 mb-8 md:mb-0">
-            <Image 
-              src="/images/eatzologo.png"  // Replace with the actual logo path
+            <Image
+              src="/images/eatzologo.png" // Replace with the actual logo path
               alt="Eatzo Logo"
-              width={120} 
-              height={40} 
+              width={120}
+              height={40}
               className="h-auto w-auto mb-4"
             />
             <p className="mb-6 text-gray-400">Bringing gourmet street food to your neighborhood!</p>

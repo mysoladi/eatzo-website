@@ -40,20 +40,25 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 bg-black text-white z-50 border-b border-gray-800 transition-all duration-300 ${
-        isScrolled ? "py-2 shadow-md" : "py-4"
-      }`}
+      className={`fixed top-0 left-0 right-0 bg-black text-white z-50 border-b border-gray-800 transition-all duration-300 ${isScrolled ? "py-2 shadow-md" : "py-4"
+        }`}
     >
       <nav className="container mx-auto flex justify-between items-center">
         <Link href="/">
-          <Image
-            src="/images/eatzologo.png" // Replace with your actual logo path
-            alt="Eatzo Logo"
-            width={isScrolled ? 45 : 57}
-            height={isScrolled ? 45 : 57}
-            className="h-auto w-auto transition-all duration-300"
-          />
+          <div
+            className={`transition-all duration-300 ${isScrolled ? "w-[45px] h-[45px]" : "w-[57px] h-[57px]"
+              }`}
+          >
+            <Image
+              src="/images/eatzologo.png" // Replace with your actual logo path
+              alt="Eatzo Logo"
+              layout="responsive"
+              width={57}
+              height={57}
+            />
+          </div>
         </Link>
+
         <div className="flex items-center space-x-6">
           <ul className="hidden md:flex space-x-6">
             <li>
