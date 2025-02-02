@@ -1,46 +1,57 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ShoppingCart, User, Menu } from "lucide-react"
-import Sidebar from "./Sidebar" // Import the Sidebar component
-import { useRouter, usePathname } from "next/navigation"
+import Sidebar from "./Sidebar"
+import { useRouter } from "next/navigation"
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const router = useRouter()
-  const pathname = usePathname()
+
+  // Listen for scroll events and update isScrolled state
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen)
+    setIsSidebarOpen((prev) => !prev)
   }
 
   const closeSidebar = () => {
     setIsSidebarOpen(false)
   }
 
-  // Redirects to the homepage with an anchor.
-  // If currently on /not-implemented, it routes home first.
+  // Redirect to homepage with the proper anchor
   const handleSectionRedirect = (section: string) => {
-    // Construct the anchor URL (e.g., "/#about" or "/#menu")
-    const anchorUrl = `/#${section}`
-
-    // Use router.push to perform a client-side navigation
-    // This works regardless of current pathname. If on "/not-implemented", it routes home.
-    router.push(anchorUrl)
+    router.push(`/#${section}`)
   }
 
   return (
-    <header className="bg-black text-white py-4 px-6 sticky top-0 z-50 border-b border-gray-800">
+    <header
+      className={`fixed top-0 left-0 right-0 bg-black text-white z-50 border-b border-gray-800 transition-all duration-300 ${
+        isScrolled ? "py-2 shadow-md" : "py-4"
+      }`}
+    >
       <nav className="container mx-auto flex justify-between items-center">
         <Link href="/">
-          <Image 
-            src="/images/eatzologo.png"  // Replace with your actual logo path
+          <Image
+            src="/images/eatzologo.png" // Replace with your actual logo path
             alt="Eatzo Logo"
-            width={57} 
-            height={57} 
-            className="h-auto w-auto"
+            width={isScrolled ? 45 : 57}
+            height={isScrolled ? 45 : 57}
+            className="h-auto w-auto transition-all duration-300"
           />
         </Link>
         <div className="flex items-center space-x-6">
@@ -68,13 +79,14 @@ export default function Header() {
             </li>
           </ul>
           <div className="flex items-center space-x-4">
-            {/* Wrap the login button with Link to not-implemented */}
             <Link href="/not-implemented">
-              <button aria-label="Sign In" className="text-white hover:text-primary transition duration-300">
+              <button
+                aria-label="Sign In"
+                className="text-white hover:text-primary transition duration-300"
+              >
                 <User size={24} />
               </button>
             </Link>
-            {/* Wrap the cart button with Link to not-implemented */}
             <Link href="/not-implemented">
               <button
                 aria-label="Shopping Cart"
@@ -88,7 +100,7 @@ export default function Header() {
             </Link>
             <button
               aria-label="Menu"
-              className="md:hidden text-white hover:text-primary transition duration-300"
+              className="md:hidden text-white hover:text-primary transition duration-300 pl-5"
               onClick={toggleSidebar}
             >
               <Menu size={24} />
@@ -96,8 +108,6 @@ export default function Header() {
           </div>
         </div>
       </nav>
-
-      {/* Sidebar */}
       <Sidebar isOpen={isSidebarOpen} closeSidebar={closeSidebar} />
     </header>
   )
