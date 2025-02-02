@@ -43,6 +43,14 @@ export default function EventsCarousel() {
                 <p className="text-white font-medium text-sm bg-gray-800 py-1 px-3 rounded-md inline-block">
                   📍 {event.location}
                 </p>
+                <a
+                  href={`https://www.google.com/maps?q=${event.location}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block mt-2 text-xs text-gray-400 hover:text-white"
+                >
+                  Open in Maps
+                </a>
               </CardContent>
             </Card>
           </div>
