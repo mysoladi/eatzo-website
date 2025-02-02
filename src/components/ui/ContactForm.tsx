@@ -44,7 +44,7 @@ export function ContactForm() {
         <h2 className="text-2xl font-bold text-primary mb-6">Get in Touch</h2>
         <Form {...form}>
           <form
-            action="https://formsubmit.co/mysoladine@gmail.com"
+            action="https://formsubmit.co/jsoladine@gmail.com"
             method="POST"
             className="space-y-6"
           >
